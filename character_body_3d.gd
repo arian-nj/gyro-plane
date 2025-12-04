@@ -1,11 +1,11 @@
 extends CharacterBody3D
 
-@export var speed = 100
-@export var gravity = 10
-@export var lift_force = 10  # Control the plane's lift
+@export var speed := 100
+@export var gravity := 10
+@export var lift_force := 10  # Control the plane's lift
 
 
-@export var roll_sensitivity = 1.5  # How much the plane tilts during turns
+@export var roll_sensitivity := 1.5  # How much the plane tilts during turns
 @export var max_tilt := Vector3.ZERO  # Maximum tilt angle
 
 var tilt_angle := Vector3.ZERO
@@ -14,8 +14,8 @@ var tilt_angle := Vector3.ZERO
 #func _ready() -> void:
 	#velocity.x = 1
 
-func _physics_process(delta):
-	var direction = Vector3.ZERO
+func _physics_process(delta:float) -> void:
+	var direction := Vector3.ZERO
 	
 	if Input.is_action_pressed("up"):
 		direction.y += 1
