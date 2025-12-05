@@ -1,5 +1,5 @@
 extends Area3D
-
+class_name GreenPoint
 
 var tween:Tween
 func _on_body_entered(body: Node3D) -> void:
@@ -11,4 +11,3 @@ func _on_body_entered(body: Node3D) -> void:
 		tween = create_tween()
 		tween.tween_property(self,"scale",Vector3(.1,.1,.1),.5)
 		tween.tween_callback(self.queue_free)
-	#

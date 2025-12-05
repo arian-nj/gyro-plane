@@ -8,6 +8,9 @@ func add_point() -> void:
 	point += 1
 	PointChanged.emit(point)
 	
+func hit_wall(body:Node3D) -> void:
+	print("lost game")
+	
 @export var speed := 100
 @export var gravity := 10
 @export var lift_force := 10  # Control the plane's lift

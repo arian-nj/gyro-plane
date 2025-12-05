@@ -6,6 +6,6 @@ class_name FollowCamera
 
 func _process(_delta: float) -> void:
 	global_position = follow_target.global_position
-	global_position.z -= 3
-	global_position.y += 1
+	global_position.z -= 2
+	global_position.y += .4
 	look_at(follow_target.global_position)

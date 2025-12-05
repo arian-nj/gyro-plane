@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://d08p4ijihaqmf"]
+[gd_scene load_steps=10 format=3 uid="uid://d08p4ijihaqmf"]
 
 [ext_resource type="Script" uid="uid://b7tmyw0kvyjl1" path="res://scripts/follow_camera.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://c6c4560i8ksfn" path="res://player.tscn" id="2_fc0e3"]
 [ext_resource type="Script" uid="uid://b76nydcrxdahr" path="res://scripts/point_label.gd" id="3_7jktm"]
 [ext_resource type="Script" uid="uid://ocvvmkjrmt6h" path="res://world.gd" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://fx7mbn8axmqb" path="res://obstacles/green_points.tscn" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://bos4jfh58n3i6" path="res://obstacles/death_walls.tscn" id="6_ryrav"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mwb40"]
 size = Vector3(6, 0.5, 50)
@@ -64,5 +65,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10.926298)
 
 [node name="GreenPoints2" parent="World" instance=ExtResource("4_fc0e3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1040144, 1.7054145, 19.33968)
+
+[node name="DeathWalls" parent="World" instance=ExtResource("6_ryrav")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8967366, 13.15216)
 
 [connection signal="PointChanged" from="Player" to="CanvasLayer/PointLabel" method="_on_player_point_changed"]
