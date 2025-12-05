@@ -1,13 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://d08p4ijihaqmf"]
+[gd_scene load_steps=9 format=3 uid="uid://d08p4ijihaqmf"]
 
-[ext_resource type="Script" uid="uid://cmbac0wf4qqns" path="res://character_body_3d.gd" id="1_80nbo"]
-[ext_resource type="Script" uid="uid://b7tmyw0kvyjl1" path="res://follow_camera.gd" id="1_e2o6t"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_e2o6t"]
-size = Vector3(0.8, 0.1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_80nbo"]
-size = Vector3(0.8, 0.1, 1)
+[ext_resource type="Script" uid="uid://b7tmyw0kvyjl1" path="res://scripts/follow_camera.gd" id="1_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://c6c4560i8ksfn" path="res://player.tscn" id="2_fc0e3"]
+[ext_resource type="Script" uid="uid://b76nydcrxdahr" path="res://scripts/point_label.gd" id="3_7jktm"]
+[ext_resource type="Script" uid="uid://ocvvmkjrmt6h" path="res://world.gd" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://fx7mbn8axmqb" path="res://obstacles/green_points.tscn" id="4_fc0e3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mwb40"]
 size = Vector3(6, 0.5, 50)
@@ -22,26 +19,12 @@ size = Vector3(6, 0.5, 50)
 [node name="game" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(-1, 1.776357e-15, 8.742277e-08, 2.8437542e-08, 0.9456152, 0.32528764, -8.2668286e-08, 0.3252876, -0.9456152, -0.3168598, 3.1844738, -4.4343596)
+transform = Transform3D(-1, -1.776357e-15, 8.742277e-08, 2.8437542e-08, 0.9456152, 0.32528764, -8.266829e-08, 0.32528764, -0.9456152, -0.31685978, 3.1844735, -4.4343596)
 script = ExtResource("1_e2o6t")
 follow_target = NodePath("../Player")
 
-[node name="Player" type="CharacterBody3D" parent="."]
+[node name="Player" parent="." instance=ExtResource("2_fc0e3")]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 1.448226, 0)
-script = ExtResource("1_80nbo")
-speed = 200
-gravity = 20
-lift_force = 100
-roll_sensitivity = 0.5
-max_tilt = Vector3(10, 2, 10)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_e2o6t")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("BoxMesh_80nbo")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.33818382, 0.29497436, -0.89365643, 0.10440085, 0.9555052, 0.275881, 0.93527114, 0, -0.35393196, -14.503147, 4, -2.4374347)
@@ -56,3 +39,30 @@ shape = SubResource("BoxShape3D_mwb40")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("BoxMesh_mwb40")
 skeleton = NodePath("../CollisionShape3D")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PointLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_7jktm")
+
+[node name="World" type="Node3D" parent="."]
+script = ExtResource("3_feb5d")
+
+[node name="GreenPoints" parent="World" instance=ExtResource("4_fc0e3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10.926298)
+
+[node name="GreenPoints2" parent="World" instance=ExtResource("4_fc0e3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1040144, 1.7054145, 19.33968)
+
+[connection signal="PointChanged" from="Player" to="CanvasLayer/PointLabel" method="_on_player_point_changed"]

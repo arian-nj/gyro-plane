@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://fx7mbn8axmqb"]
+
+[ext_resource type="Script" uid="uid://drv7twcmwomej" path="res://obstacles/green_points.gd" id="1_cb6ls"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_q0nbm"]
+height = 0.1
+radius = 0.71533203
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q0nbm"]
+blend_mode = 1
+albedo_color = Color(0.42352942, 0.79607844, 0.19215687, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_q0nbm"]
+material = SubResource("StandardMaterial3D_q0nbm")
+top_radius = 0.7
+height = 0.1
+
+[node name="GreenPoints" type="Area3D"]
+script = ExtResource("1_cb6ls")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_q0nbm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_q0nbm")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
