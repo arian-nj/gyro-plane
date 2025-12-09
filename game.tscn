@@ -24,8 +24,11 @@ transform = Transform3D(-1, -1.776357e-15, 8.742277e-08, 2.8437542e-08, 0.945615
 script = ExtResource("1_e2o6t")
 follow_target = NodePath("../Player")
 
-[node name="Player" parent="." instance=ExtResource("2_fc0e3")]
+[node name="Player" parent="." node_paths=PackedStringArray("accel_label") instance=ExtResource("2_fc0e3")]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 1.448226, 0)
+speed = 2.0
+lift_force = 2.0
+accel_label = NodePath("../CanvasLayer/AccelLabel")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.33818382, 0.29497436, -0.89365643, 0.10440085, 0.9555052, 0.275881, 0.93527114, 0, -0.35393196, -14.503147, 4, -2.4374347)
@@ -57,16 +60,37 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_7jktm")
 
+[node name="Button" type="Button" parent="CanvasLayer"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -4.0
+offset_bottom = 4.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Retry"
+
+[node name="AccelLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 30
+
 [node name="World" type="Node3D" parent="."]
 script = ExtResource("3_feb5d")
-
-[node name="GreenPoints" parent="World" instance=ExtResource("4_fc0e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10.926298)
-
-[node name="GreenPoints2" parent="World" instance=ExtResource("4_fc0e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1040144, 1.7054145, 19.33968)
-
-[node name="DeathWalls" parent="World" instance=ExtResource("6_ryrav")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8967366, 13.15216)
+SpawnList = Array[PackedScene]([ExtResource("4_fc0e3"), ExtResource("6_ryrav")])
+spawn_offset = Vector3(0, 0, 3)
 
 [connection signal="PointChanged" from="Player" to="CanvasLayer/PointLabel" method="_on_player_point_changed"]
+[connection signal="pressed" from="CanvasLayer/Button" to="CanvasLayer/PointLabel" method="_on_button_pressed"]
