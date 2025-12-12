@@ -4,7 +4,7 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_q0nbm"]
 height = 0.1
-radius = 0.71533203
+radius = 0.7402344
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6nsth"]
 blend_mode = 1

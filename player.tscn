@@ -11,10 +11,7 @@ size = Vector3(0.8, 0.1, 1)
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_4flbx")
-speed = 150
-lift_force = 40
 roll_sensitivity = 0.5
-max_tilt = Vector3(10, 2, 10)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.9999987, 0, 0, 0, 0.9999987, 0, 0, 0, 1, 0, 0, 0)

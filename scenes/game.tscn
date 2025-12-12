@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://d08p4ijihaqmf"]
 
-[ext_resource type="Script" uid="uid://b7tmyw0kvyjl1" path="res://scripts/follow_camera.gd" id="1_e2o6t"]
-[ext_resource type="PackedScene" uid="uid://c6c4560i8ksfn" path="res://player.tscn" id="2_fc0e3"]
-[ext_resource type="Script" uid="uid://b76nydcrxdahr" path="res://scripts/point_label.gd" id="3_7jktm"]
-[ext_resource type="Script" uid="uid://ocvvmkjrmt6h" path="res://world.gd" id="3_feb5d"]
-[ext_resource type="PackedScene" uid="uid://fx7mbn8axmqb" path="res://obstacles/green_points.tscn" id="4_fc0e3"]
-[ext_resource type="PackedScene" uid="uid://bos4jfh58n3i6" path="res://obstacles/death_walls.tscn" id="6_ryrav"]
+[ext_resource type="Script" uid="uid://b7tmyw0kvyjl1" path="res://scripts/follow_camera.gd" id="1_p57ef"]
+[ext_resource type="PackedScene" uid="uid://c6c4560i8ksfn" path="res://player.tscn" id="2_u5sy4"]
+[ext_resource type="Script" uid="uid://b76nydcrxdahr" path="res://scripts/point_label.gd" id="3_gee14"]
+[ext_resource type="Script" uid="uid://ocvvmkjrmt6h" path="res://world.gd" id="4_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://fx7mbn8axmqb" path="res://obstacles/green_points.tscn" id="5_vtaks"]
+[ext_resource type="PackedScene" uid="uid://bos4jfh58n3i6" path="res://obstacles/death_walls.tscn" id="6_kvpfn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mwb40"]
 size = Vector3(6, 0.5, 50)
@@ -20,21 +20,24 @@ size = Vector3(6, 0.5, 50)
 [node name="game" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(-1, -1.776357e-15, 8.742277e-08, 2.8437542e-08, 0.9456152, 0.32528764, -8.266829e-08, 0.32528764, -0.9456152, -0.31685978, 3.1844735, -4.4343596)
-script = ExtResource("1_e2o6t")
+transform = Transform3D(-1, 1.7145018e-08, -8.5725084e-08, 0, 0.9805807, 0.19611613, 8.742278e-08, 0.19611613, -0.9805807, 0, 1.848226, -1.2288331)
+script = ExtResource("1_p57ef")
 follow_target = NodePath("../Player")
 
-[node name="Player" parent="." node_paths=PackedStringArray("accel_label") instance=ExtResource("2_fc0e3")]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 1.448226, 0)
-speed = 2.0
-lift_force = 2.0
+[node name="Player" parent="." node_paths=PackedStringArray("accel_label") instance=ExtResource("2_u5sy4")]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 1.448226, 0.7711669)
+max_lr_speed = 3.0
+gravity = 1.5
+roll_sensitivity = 0.2
+up_down_sensitivity = 5.0
+left_right_sensitivity = 10.0
 accel_label = NodePath("../CanvasLayer/AccelLabel")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.33818382, 0.29497436, -0.89365643, 0.10440085, 0.9555052, 0.275881, 0.93527114, 0, -0.35393196, -14.503147, 4, -2.4374347)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7465222, 24.194077)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7465222, 25.111252)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
@@ -58,7 +61,7 @@ theme_override_font_sizes/font_size = 40
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("3_7jktm")
+script = ExtResource("3_gee14")
 
 [node name="Button" type="Button" parent="CanvasLayer"]
 anchors_preset = 6
@@ -88,9 +91,8 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 30
 
 [node name="World" type="Node3D" parent="."]
-script = ExtResource("3_feb5d")
-SpawnList = Array[PackedScene]([ExtResource("4_fc0e3"), ExtResource("6_ryrav")])
-spawn_offset = Vector3(0, 0, 3)
+script = ExtResource("4_0tnpc")
+SpawnList = Array[PackedScene]([ExtResource("5_vtaks"), ExtResource("6_kvpfn")])
 
 [connection signal="PointChanged" from="Player" to="CanvasLayer/PointLabel" method="_on_player_point_changed"]
 [connection signal="pressed" from="CanvasLayer/Button" to="CanvasLayer/PointLabel" method="_on_button_pressed"]

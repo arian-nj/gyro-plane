@@ -3,7 +3,8 @@ class_name WorldSpawner
 
 @export var SpawnList:Array[PackedScene]
 @export var spawn_quantity : int = 10
-@export var spawn_offset: Vector3 = Vector3(0, 0, 0)
+@export var spawn_offset: Vector3 = Vector3(0, 0, 3)
+
 var last_obstacle_pos := Vector3(0,0,0)
 
 func _ready() -> void:
